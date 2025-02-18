@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <button id="start-button">启动Python脚本</button>
+
+    <script>
+        document.getElementById('start-button').addEventListener('click', () => {
+            console.log("发送 start-python-script 事件"); // 调试信息
+            window.electronAPI.startPythonScript();
+        });
+
+        window.electronAPI.onPythonScriptResult((event, message) => {
+            console.log("接收到主进程的回复:", message); // 调试信息
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @font-face {
+            font-family: "AlimamaDongFangDaKai-Regular";
+            src: url("./Resources/Words/AlimamaDongFangDaKai-Regular.otf");
+        }
+
+        * {
+            user-select: none;
+            font-family: "AlimamaDongFangDaKai-Regular";
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .menu-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            height: 45px;
+            background: #2d2d2d;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .menu-item {
+            flex: 1;
+            text-align: center;
+            color: white;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            letter-spacing: 4px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .menu-item.active {
+            background: #444;
+            font-weight: bold;
+        }
+
+        #content {
+            margin-top: 45px;
+            padding: 10px;
+        }
+
+        .separator {
+            width: 5px;
+            background: #555;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        .separator-1 {
+            width: 5px;
+            background: #2d2d2d;
+            height: 30px;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <div class="menu-bar">
+        <div class="separator-1"></div>
+        <div class="menu-item" onclick="loadContent('1.html')">近期资讯</div>
+        <div class="separator-1"></div>
+        <div class="separator"></div>
+        <div class="separator-1"></div>
+        <div class="menu-item" onclick="loadContent('2.html')">一键MAA</div>
+        <div class="separator-1"></div>
+        <div class="separator"></div>
+        <div class="separator-1"></div>
+        <div class="menu-item" onclick="loadContent('3.html')">干员计算</div>
+        <div class="separator-1"></div>
+        <div class="separator"></div>
+        <div class="separator-1"></div>
+        <div class="menu-item" onclick="loadContent('4.html')">集批分区</div>
+        <div class="separator-1"></div>
+    </div>
+
+    <!-- 内容区域 -->
+    <div id="content">
+        <h1>Welcome!</h1>
+    </div>
+
+    <script>
+        function loadContent(page) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', page, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('content').innerHTML = xhr.responseText;
+                } else {
+                    document.getElementById('content').innerHTML = '<p>加载内容失败，请稍后重试。</p>';
+                }
+            };
+            xhr.onerror = function () {
+                document.getElementById('content').innerHTML = '<p>加载内容失败，请稍后重试。</p>';
+            };
+            xhr.send();
+
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            const clickedItem = event.target;
+            clickedItem.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
