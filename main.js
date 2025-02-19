@@ -25,6 +25,7 @@ const createWindow = () => {
         }
     })
 
+    //win.loadURL('http://localhost:5173/') 转Vue
     win.loadFile('index.html')
     win.once('ready-to-show', () => {
         win.show()
@@ -44,7 +45,7 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
 
-// 监听渲染-start.py
+// 监听渲染-start.py 有点问题
 ipcMain.on('start-python-script', (event) => {
     console.log("接收到渲染进程的请求"); // 调试信息
     const pythonScriptPath = path.join(__dirname, 'start', 'start.py');
